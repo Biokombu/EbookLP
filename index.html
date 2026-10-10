@@ -1,241 +1,224 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>No More Bottles! - Natural Perfume Making Guide</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=DM+Mono:wght@400;500&family=Zilla+Slab:wght@300;400&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --purple-deep: #1a0329;
-      --purple-bg: #12021c;
-      --text-light: #f3e9f8;
-      --gold-accent: #d4af37;
+      --cream: #efede2;
+      --ink: #121212;
+      --ink-soft: #3a3a36;
+      --board: 12vw;   /* ancho del tablero fijo */
+      --photo: 26vw;   /* ancho de la foto de flores */
+      --fade: 22px;    /* difuminado entre tablero y foto */
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'Montserrat', sans-serif;
-      background-color: var(--purple-bg);
-      color: var(--text-light);
-      line-height: 1.8;
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'Cormorant Garamond', serif;
+      line-height: 1.5;
     }
 
-    .landing-container {
-      display: flex;
-      width: 100%;
+    /* TABLERO FIJO: no se mueve al hacer scroll; las fotos pasan por delante */
+    .board {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: calc(var(--board) + var(--fade));
+      background: #1c120b url("tablero.jpg") center / cover no-repeat;
+      z-index: 0;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: var(--board) var(--photo) 1fr;
       min-height: 100vh;
+      position: relative;
     }
 
-    /* COLUMNA IZQUIERDA: Franja continua de fotos */
-    .left-column {
-      width: 35%;
-      display: flex;
-      flex-direction: column;
-      border-right: 1px solid rgba(212, 175, 55, 0.2);
-      box-shadow: 10px 0 30px rgba(0,0,0,0.5);
+    /* Fotos de flores: pegadas una a otra, sin huecos */
+    .photo {
+      grid-column: 2;
+      position: relative;
+      margin-bottom: -1px;
+      z-index: 1;
     }
 
-    /* Cada imagen ocupa toda la altura del bloque correspondiente */
-    .left-column img {
-      width: 100%;
-      height: 100vh; /* Ocupa exactamente la pantalla vertical de cada sección */
+    .photo img {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: calc(var(--fade) * -1);
+      width: calc(100% + var(--fade));
+      height: 100%;
       object-fit: cover;
       object-position: left center;
-      display: block; /* Elimina espacio en blanco entre imágenes */
+      display: block;
+      /* el borde izquierdo se funde con el tablero */
+      -webkit-mask-image: linear-gradient(to right, transparent 0, #000 var(--fade));
+              mask-image: linear-gradient(to right, transparent 0, #000 var(--fade));
     }
 
-    /* COLUMNA DERECHA: Texto sobre fondo púrpura elegante */
-    .right-column {
-      width: 65%;
-      padding: 4rem 6%;
-      background: linear-gradient(180deg, rgba(42, 8, 69, 0.95) 0%, rgba(10, 1, 18, 0.98) 100%);
-    }
 
-    .hero-section {
-      text-align: center;
-      margin-bottom: 5rem;
-      padding-bottom: 3rem;
-      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-    }
-
-    .book-cover {
-      max-width: 280px;
-      width: 100%;
-      height: auto;
-      border-radius: 8px;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 0 0 25px rgba(107, 27, 154, 0.5);
-      margin-bottom: 2rem;
-    }
-
-    h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 3.2rem;
-      color: #ffffff;
-      margin-bottom: 0.5rem;
-    }
-
-    .subtitle {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.4rem;
-      font-style: italic;
-      color: var(--gold-accent);
-      margin-bottom: 1.5rem;
-    }
-
-    .author {
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      opacity: 0.8;
-    }
-
-    /* Bloques de Texto Sincronizados */
-    .text-section {
-      min-height: 100vh; /* Sincroniza la altura con la foto de la izquierda */
+    .content {
+      grid-column: 3;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 2rem 0;
+      padding: 4rem 8% 4rem 7%;
+      position: relative;
+      z-index: 2;
     }
 
-    .section-card {
-      background: rgba(255, 255, 255, 0.03);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(212, 175, 55, 0.15);
-      border-radius: 12px;
-      padding: 3rem;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    .hero { margin-bottom: 4rem; }
+
+    .book-cover {
+      width: 100%;
+      max-width: 220px;
+      height: auto;
+      display: block;
+      margin-bottom: 2.5rem;
+    }
+
+    h1 {
+      font-family: 'Zilla Slab', serif;
+      font-weight: 300;
+      font-size: clamp(2.6rem, 7vw, 6rem);
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+    }
+
+    .subtitle {
+      font-size: clamp(1.15rem, 2.4vw, 1.5rem);
+      font-style: italic;
+      margin-top: 1rem;
+      color: var(--ink-soft);
+    }
+
+    .author {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      margin-top: 1.2rem;
     }
 
     h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.4rem;
-      color: var(--gold-accent);
-      margin-bottom: 1.5rem;
+      font-family: 'DM Mono', monospace;
       font-weight: 400;
-    }
-
-    p {
-      font-size: 1.1rem;
-      font-weight: 300;
+      font-size: clamp(1.1rem, 2.6vw, 2rem);
+      line-height: 1.2;
+      text-transform: uppercase;
       margin-bottom: 1.2rem;
-      color: #e2d5ed;
     }
 
-    p strong {
-      color: #ffffff;
-      font-weight: 500;
+    .content p {
+      font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+      letter-spacing: 0.04em;
+      margin-bottom: 1rem;
+      max-width: 34em;
     }
 
-    em {
-      font-family: 'Cormorant Garamond', serif;
-      color: var(--gold-accent);
-      font-style: italic;
-      font-size: 1.25rem;
-    }
+    .content p strong { font-weight: 500; }
+    em { font-style: italic; }
 
-    /* Ajuste para pantallas pequeñas / móviles */
-    @media (max-width: 900px) {
-      .landing-container {
-        flex-direction: column;
+    /* Móvil: misma estructura, tablero y fotos más estrechos */
+    @media (max-width: 700px) {
+      :root {
+        --board: 9vw;
+        --photo: 29vw;
+        --fade: 14px;
       }
-      .left-column, .right-column {
-        width: 100%;
-      }
-      .left-column img {
-        height: 350px;
-      }
-      .text-section {
-        min-height: auto;
-      }
+      .row { min-height: 440px; }
+      .content { padding: 2.5rem 5% 2.5rem 5%; }
+      .hero { margin-bottom: 2.5rem; }
+      .book-cover { max-width: 140px; margin-bottom: 1.5rem; }
     }
   </style>
 </head>
 <body>
 
-  <div class="landing-container">
-    
-    <!-- COLUMNA IZQUIERDA: MURAL CONTINUO DE IMÁGENES -->
-    <div class="left-column">
-      <img src="Tbergamota.png" alt="Bergamota sobre tablero rústico">
-      <img src="Trosas.png" alt="Rosas sobre tablero rústico">
-      <img src="Tjazmin.png" alt="Jazmín sobre tablero rústico">
-      <img src="Tmezcla.png" alt="Mezcla de aceites esenciales">
-      <img src="Tresinas.png" alt="Resinas sobre tablero rústico">
-    </div>
+  <!-- Tablero continuo y fijo -->
+  <div class="board" aria-hidden="true"></div>
 
-    <!-- COLUMNA DERECHA: TEXTO Y PORTADA -->
-    <div class="right-column">
-      
-      <!-- Cabecera -->
-      <section class="hero-section">
+  <!-- FILA 1: portada + sección 1 -->
+  <div class="row">
+    <div class="photo"><img src="foto-bergamota.jpg" alt="Bergamota sobre tablero rústico"></div>
+    <div class="content">
+      <header class="hero">
         <img src="portada.png" alt="No More Bottles Cover" class="book-cover">
         <h1>No More Bottles!</h1>
         <p class="subtitle">Natural Perfume Making Guide</p>
         <p class="author">By Blue Kolmer</p>
+      </header>
+
+      <section>
+        <h2>The Wake-Up Call</h2>
+        <p><strong>Your skin is your body's largest organ—it drinks in whatever you put on it.</strong></p>
+        <p>Commercial perfumes rely on synthetic fixatives, phthalates, and hidden chemical cocktails masked under the generic term <em>"parfum"</em>. These endocrine disruptors interfere with your hormones and health every single day.</p>
+        <p>It’s time to break free from mass-produced corporate bottles and choose 100% clean, botanical ingredients.</p>
       </section>
-
-      <!-- Sección 1 -->
-      <div class="text-section">
-        <div class="section-card">
-          <h2>1. The Wake-Up Call</h2>
-          <p><strong>Your skin is your body's largest organ—it drinks in whatever you put on it.</strong></p>
-          <p>Commercial perfumes rely on synthetic fixatives, phthalates, and hidden chemical cocktails masked under the generic term <em>"parfum"</em>. These endocrine disruptors interfere with your hormones and health every single day.</p>
-          <p>It’s time to break free from mass-produced corporate bottles and choose 100% clean, botanical ingredients.</p>
-        </div>
-      </div>
-
-      <!-- Sección 2 -->
-      <div class="text-section">
-        <div class="section-card">
-          <h2>2. The Botanical Heart</h2>
-          <p><strong>Master the alchemy of Ylang Ylang, Rose, and natural blending.</strong></p>
-          <p>In <em>No More Bottles!</em>, you’ll unlock the secrets of the olfactory pyramid. Learn how delicate top notes like Bergamot dance with rich, sensual heart notes like Ylang Ylang and Rose of Alexandria.</p>
-          <p>Discover easy, step-by-step home techniques to formulate unisex, emotionally grounding fragrances without expensive laboratory equipment.</p>
-        </div>
-      </div>
-
-      <!-- Sección 3 -->
-      <div class="text-section">
-        <div class="section-card">
-          <h2>3. The Floral Depth</h2>
-          <p><strong>Capture the intoxicating essence of nocturnal florals in your custom blends.</strong></p>
-          <p>Jasmine brings a rich, exotic warmth that elevates any natural formulation from a simple home mixture to a sophisticated boutique scent.</p>
-          <p>Learn how to balance heavy floral absolutes with crisp green notes to achieve a harmonious, multi-dimensional profile.</p>
-        </div>
-      </div>
-
-      <!-- Sección 4 -->
-      <div class="text-section">
-        <div class="section-card">
-          <h2>4. The Art of Blending</h2>
-          <p><strong>Pure essential oils last longer and smell richer than synthetic cheap fixatives.</strong></p>
-          <p>Grounded by deep roots and warm resins, natural perfumes evolve beautifully on your skin throughout the day.</p>
-          <p>Beyond personal wellness, this is the ultimate homestead skill. Micro-batch, transparent, local artisan perfumery is the booming trend for the coming years.</p>
-        </div>
-      </div>
-
-      <!-- Sección 5 -->
-      <div class="text-section">
-        <div class="section-card">
-          <h2>5. Longevity &amp; The Artisan Opportunity</h2>
-          <p><strong>Anchor your botanical creations with deep, timeless fixatives.</strong></p>
-          <p>Using natural resins and balsams ensures your perfumes have incredible staying power naturally, without petrochemical interference.</p>
-          <p>Turn your passion into a trusted local craft or boutique brand and start your journey into independent natural perfumery today.</p>
-        </div>
-      </div>
-
     </div>
+  </div>
 
+  <!-- FILA 2 -->
+  <div class="row">
+    <div class="photo"><img src="foto-rosas.jpg" alt="Rosas y lavanda sobre tablero rústico"></div>
+    <div class="content">
+      <section>
+        <h2>The Botanical Heart</h2>
+        <p><strong>Master the alchemy of Ylang Ylang, Rose, and natural blending.</strong></p>
+        <p>In <em>No More Bottles!</em>, you’ll unlock the secrets of the olfactory pyramid. Learn how delicate top notes like Bergamot dance with rich, sensual heart notes like Ylang Ylang and Rose of Alexandria.</p>
+        <p>Discover easy, step-by-step home techniques to formulate unisex, emotionally grounding fragrances without expensive laboratory equipment.</p>
+      </section>
+    </div>
+  </div>
+
+  <!-- FILA 3 -->
+  <div class="row">
+    <div class="photo"><img src="foto-jazmin.jpg" alt="Jazmín sobre tablero rústico"></div>
+    <div class="content">
+      <section>
+        <h2>The Floral Depth</h2>
+        <p><strong>Capture the intoxicating essence of nocturnal florals in your custom blends.</strong></p>
+        <p>Jasmine brings a rich, exotic warmth that elevates any natural formulation from a simple home mixture to a sophisticated boutique scent.</p>
+        <p>Learn how to balance heavy floral absolutes with crisp green notes to achieve a harmonious, multi-dimensional profile.</p>
+      </section>
+    </div>
+  </div>
+
+  <!-- FILA 4 -->
+  <div class="row">
+    <div class="photo"><img src="foto-mezcla.jpg" alt="Mezcla de aceites esenciales"></div>
+    <div class="content">
+      <section>
+        <h2>The Art of Blending</h2>
+        <p><strong>Pure essential oils last longer and smell richer than synthetic cheap fixatives.</strong></p>
+        <p>Grounded by deep roots and warm resins, natural perfumes evolve beautifully on your skin throughout the day.</p>
+        <p>Beyond personal wellness, this is the ultimate homestead skill. Micro-batch, transparent, local artisan perfumery is the booming trend for the coming years.</p>
+      </section>
+    </div>
+  </div>
+
+  <!-- FILA 5 -->
+  <div class="row">
+    <div class="photo"><img src="foto-resinas.jpg" alt="Resinas sobre tablero rústico"></div>
+    <div class="content">
+      <section>
+        <h2>Longevity &amp; The Artisan Opportunity</h2>
+        <p><strong>Anchor your botanical creations with deep, timeless fixatives.</strong></p>
+        <p>Using natural resins and balsams ensures your perfumes have incredible staying power naturally, without petrochemical interference.</p>
+        <p>Turn your passion into a trusted local craft or boutique brand and start your journey into independent natural perfumery today.</p>
+      </section>
+    </div>
   </div>
 
 </body>
