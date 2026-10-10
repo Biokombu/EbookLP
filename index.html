@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>No More Bottles! - Natural Perfume Making Guide</title>
-  <!-- Fuentes elegantes desde Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
@@ -12,8 +11,6 @@
   <style>
     :root {
       --purple-deep: #1a0329;
-      --purple-vibrant: #4a126d;
-      --purple-glow: #6b1b9a;
       --text-light: #f3e9f8;
       --gold-accent: #d4af37;
     }
@@ -32,33 +29,31 @@
       overflow-x: hidden;
     }
 
-    /* Layout principal: 2 Columnas */
     .landing-layout {
       display: flex;
       min-height: 100vh;
     }
 
-    /* Columna Izquierda: Lateral Rústico Botánico */
+    /* Lateral Fijo con continuidad del Tablero (Tbergamota.png de base) */
     .sidebar-botanical {
       width: 40%;
       position: sticky;
       top: 0;
       height: 100vh;
-      background-image: url('1771051981256 (1).png'); /* Asegúrate de que esta imagen esté en tu repo */
+      background-image: url('Tbergamota.png');
       background-size: cover;
       background-position: center left;
       border-right: 1px solid rgba(255, 255, 255, 0.1);
       box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
     }
 
-    /* Columna Derecha: Contenido del Ebook y Texto */
+    /* Contenido Principal */
     .main-content {
       width: 60%;
       padding: 4rem 5%;
       background: linear-gradient(180deg, rgba(42, 8, 69, 0.85) 0%, rgba(10, 1, 18, 0.95) 100%);
     }
 
-    /* Hero & Portada */
     .hero-section {
       text-align: center;
       margin-bottom: 4rem;
@@ -73,21 +68,13 @@
       border-radius: 8px;
       box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7), 0 0 25px rgba(107, 27, 154, 0.4);
       margin-bottom: 2rem;
-      transition: transform 0.3s ease;
-    }
-
-    .book-cover:hover {
-      transform: translateY(-5px);
     }
 
     h1 {
       font-family: 'Cormorant Garamond', serif;
       font-size: 3rem;
-      font-weight: 600;
-      letter-spacing: 2px;
       color: #ffffff;
       margin-bottom: 0.5rem;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
     }
 
     .subtitle {
@@ -105,7 +92,7 @@
       opacity: 0.8;
     }
 
-    /* Bloques de Texto */
+    /* Tarjetas de Sección */
     .section-card {
       background: rgba(255, 255, 255, 0.03);
       backdrop-filter: blur(10px);
@@ -116,13 +103,23 @@
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
     }
 
+    /* Imágenes interiores alineadas con la misma perspectiva rústica */
+    .botanical-img {
+      width: 100%;
+      max-height: 280px;
+      object-fit: cover;
+      object-position: center left;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    }
+
     h2 {
       font-family: 'Cormorant Garamond', serif;
       font-size: 2.2rem;
       color: var(--gold-accent);
       margin-bottom: 1.2rem;
-      font-weight: 400;
-      letter-spacing: 1px;
     }
 
     p {
@@ -134,17 +131,14 @@
 
     p strong {
       color: #ffffff;
-      font-weight: 500;
     }
 
     em {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.2rem;
       color: var(--gold-accent);
       font-style: italic;
     }
 
-    /* Adaptación para pantallas pequeñas / móviles */
     @media (max-width: 900px) {
       .landing-layout {
         flex-direction: column;
@@ -158,23 +152,16 @@
         width: 100%;
         padding: 2rem 1.5rem;
       }
-      h1 {
-        font-size: 2.2rem;
-      }
     }
   </style>
 </head>
 <body>
 
   <div class="landing-layout">
-    
-    <!-- Lateral Izquierdo: Tablero Rústico Botánico -->
+    <!-- Lateral Fijo con continuidad del tablero -->
     <div class="sidebar-botanical"></div>
 
-    <!-- Contenido Principal: Púrpura con la portada y el texto -->
     <main class="main-content">
-      
-      <!-- Cabecera con la Portada -->
       <section class="hero-section">
         <img src="1000003282.png" alt="No More Bottles Cover" class="book-cover">
         <h1>No More Bottles!</h1>
@@ -182,33 +169,53 @@
         <p class="author">By Blue Kolmer</p>
       </section>
 
-      <!-- Bloque 1 -->
+      <!-- Bloque 1: El despertar y la Bergamota -->
       <section class="section-card">
+        <img src="Tbergamota.png" alt="Bergamota sobre tablero rústico" class="botanical-img">
         <h2>1. The Wake-Up Call</h2>
         <p><strong>Your skin is your body's largest organ—it drinks in whatever you put on it.</strong></p>
         <p>Commercial perfumes rely on synthetic fixatives, phthalates, and hidden chemical cocktails masked under the generic term <em>"parfum"</em>. These endocrine disruptors interfere with your hormones and health every single day.</p>
         <p>It’s time to break free from mass-produced corporate bottles and choose 100% clean, botanical ingredients.</p>
       </section>
 
-      <!-- Bloque 2 -->
+      <!-- Bloque 2: El corazón botánico y las Rosas -->
       <section class="section-card">
+        <img src="Trosas.png" alt="Rosas sobre tablero rústico" class="botanical-img">
         <h2>2. The Botanical Heart</h2>
         <p><strong>Master the alchemy of Ylang Ylang, Rose, and natural blending.</strong></p>
         <p>In <em>No More Bottles!</em>, you’ll unlock the secrets of the olfactory pyramid. Learn how delicate top notes like Bergamot dance with rich, sensual heart notes like Ylang Ylang and Rose of Alexandria.</p>
         <p>Discover easy, step-by-step home techniques to formulate unisex, emotionally grounding fragrances without expensive laboratory equipment.</p>
       </section>
 
-      <!-- Bloque 3 -->
+      <!-- Bloque 3: Jazmín -->
       <section class="section-card">
-        <h2>3. Longevity &amp; The Artisan Opportunity</h2>
-        <p><strong>Pure essential oils last longer and smell richer than synthetic cheap fixatives.</strong></p>
-        <p>Grounded by deep Vetiver roots and warm Benzoin resins, natural perfumes evolve beautifully on your skin throughout the day.</p>
-        <p>Beyond personal wellness, this is the ultimate homestead skill. Micro-batch, transparent, local artisan perfumery is the booming trend for the coming years. Turn your passion into a trusted local craft or boutique brand.</p>
+        <img src="Tjazmin.png" alt="Jazmín sobre tablero rústico" class="botanical-img">
+        <h2>3. The Floral Depth</h2>
+        <p><strong>Capture the intoxicating essence of nocturnal florals in your custom blends.</strong></p>
+        <p>Jazmín brings a rich, exotic warmth that elevates any natural formulation from a simple home mixture to a sophisticated boutique scent.</p>
+        <p>Learn how to balance heavy floral absolutes with crisp green notes to achieve a harmonious, multi-dimensional profile.</p>
       </section>
 
-    </main>
+      <!-- Bloque 4: La mezcla y el arte -->
+      <section class="section-card">
+        <img src="Tmezcla.png" alt="Proceso de mezcla artesanal" class="botanical-img">
+        <h2>4. The Art of Blending</h2>
+        <p><strong>Pure essential oils last longer and smell richer than synthetic cheap fixatives.</strong></p>
+        <p>Grounded by deep roots and warm resins, natural perfumes evolve beautifully on your skin throughout the day.</p>
+        <p>Beyond personal wellness, this is the ultimate homestead skill. Micro-batch, transparent, local artisan perfumery is the booming trend for the coming years.</p>
+      </section>
 
+      <!-- Bloque 5: Las resinas y conclusión -->
+      <section class="section-card">
+        <img src="Tresinas.png" alt="Resinas naturales sobre madera" class="botanical-img">
+        <h2>5. Longevity &amp; The Artisan Opportunity</h2>
+        <p><strong>Anchor your botanical creations with deep, timeless fixatives.</strong></p>
+        <p>Using natural resins and balsams ensures your perfumes have incredible staying power naturally, without petrochemical interference.</p>
+        <p>Turn your passion into a trusted local craft or boutique brand and start your journey into independent natural perfumery today.</p>
+      </section>
+    </main>
   </div>
 
 </body>
-</html>
+          </html>
+          
